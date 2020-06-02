@@ -126,4 +126,91 @@ def game_hash
   }
 end
 
-# Write code here
+puts game_hash[:home][:team_name]
+
+
+def num_points_scored(player_name)
+  points_scored = 0
+  game_hash.each do |key, value|
+    value[:players].each do |obejcts|
+      name = obejcts[:player_name]
+      points = obejcts[:points]
+            if name == player_name
+        points_scored += points
+      end
+    end
+  end
+  return points_scored
+end
+
+def shoe_size(player_name)
+  shoe_size = 0
+  game_hash.each do |key, value|
+    value[:players].each do |obejcts|
+      name = obejcts[:player_name]
+      shoe = obejcts[:shoe]
+      if name == player_name
+        shoe_size += shoe
+      end
+    end
+  end
+  return shoe_size
+end
+
+def team_colors(team)
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_value == team
+        colors = value[:colors]
+        return colors
+      end
+    end
+    end
+  return "team not found"
+end
+
+def team_names()
+  names = []
+  game_hash.each do |key, value|
+    name = value[:team_name]
+    names.push(name)
+  end
+  return names
+end
+
+def player_numbers(team_name)
+  game_hash.each do |keys, values|
+    if values[:team_name] == team_name
+      results = values[:players].map {|item| item[:number]}
+      results = results.sort
+      return results
+    end
+  end
+end
+
+def player_stats(name)
+  game_hash.each do |key, value|
+    value[:players].each do |player|
+      if player[:player_name] == name
+        new_hash = player.delete_if {|stat_key, stat_value| [:player_name].include?(stat_key)}
+        new_hash[:player_name] = name
+        return new_hash
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds()
+  rebounds = 0
+  bigshoe = 0
+  game_hash.each do |locaiton, keys|
+    keys[:players].each do |player|
+      if player[:shoe] > bigshoe
+        bigshoe = player[:shoe]
+        rebounds = player[:rebounds]
+      end
+    end
+  end
+  return rebounds
+end
+
