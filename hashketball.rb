@@ -1,4 +1,5 @@
-# Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -126,4 +127,88 @@ def game_hash
   }
 end
 
-# Write code here
+# player_helper, get_team_helper, player_numbers and num_points scored use code snipets found in the debugging video tutorial.
+
+def player_helper
+  game_hash[:home][:players].concat(game_hash[:away][:players])
+
+end
+
+
+def get_team_helper(team)
+  case team
+  when game_hash[:home][:team_name]
+    game_hash[:home]
+  when game_hash[:away][:team_name]
+    game_hash[:away]
+  end
+end
+
+def player_numbers(team)
+  get_team_helper(team)[:players].map do |players|
+    players[:number]
+  end
+end
+
+def num_points_scored(player)
+  player_helper.each do |hash|
+    return hash[:points] if hash[:player_name] == player
+    end
+end
+
+def shoe_size(player)
+  player_helper.each do |hash|
+    return hash[:shoe] if hash[:player_name] == player
+    end
+end
+
+def team_colors(team)
+  get_team_helper(team)[:colors]
+end
+
+def team_names
+  teams = game_hash[:home][:team_name], game_hash[:away][:team_name]
+  teams
+end
+
+def player_stats(player)
+  player_helper.each do |hash|
+    return hash if hash[:player_name] == player
+    end
+end
+
+def big_shoe_rebounds
+    big_shoe = 0
+    player = 0
+    player_helper.each do |hash|
+    if hash[:shoe] > big_shoe
+      big_shoe = hash[:shoe]
+      player = hash[:rebounds]
+    end
+  end
+  player
+end
+
+def most_points_scored
+  most_points = 0
+  player = ""
+    player_helper.each do |hash|
+      if hash[:points] > most_points
+        most_points = hash[:points]
+        player = hash[:player_name]
+      end
+    end
+  player
+end
+
+# def winning_team
+#   most_points = 0
+#   team = ""
+#     player_helper.each do |hash|
+#       if hash[:points] > most_points
+#         most_points = hash[:points]
+#         player = hash[:player_name]
+#       end
+#     end
+#     player
+# end
