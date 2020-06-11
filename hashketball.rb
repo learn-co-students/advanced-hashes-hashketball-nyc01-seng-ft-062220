@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -127,3 +129,147 @@ def game_hash
 end
 
 # Write code here
+
+
+def num_points_scored (name)
+ 
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_key == :players
+        inner_value.each do |player_block|
+          player_block.each do |attributes, stats|
+            if stats == name
+              return player_block[:points]
+            end  
+          end
+        end
+      end  
+    end
+  end
+
+end
+
+
+def shoe_size (name)
+
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_key == :players
+        inner_value.each do |player_block|
+          player_block.each do |attributes, stats|
+            if stats == name
+              return player_block[:shoe]
+            end  
+          end
+        end
+      end  
+    end
+  end
+
+end
+
+
+def team_colors (team)
+
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_value == team
+        return value[:colors]
+      end
+    end
+  end
+
+end
+
+
+def team_names 
+
+teams = []
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_key == :team_name
+        teams << inner_value
+      end  
+    end
+  end
+  teams
+end
+
+
+def player_numbers (team)
+  
+ jerseys = [] 
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_value == team
+        
+        counter = 0
+        while counter < value[:players].count do
+          jerseys << value[:players][counter][:number]
+          counter += 1
+        end
+          
+      end
+    end
+  end
+  
+  jerseys
+end  
+  
+  
+def player_stats (name)
+
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_key == :players
+        inner_value.each do |player_block|
+          player_block.each do |attributes, stats|
+            if stats == name
+              return player_block
+            end  
+          end
+        end
+      end  
+    end
+  end
+  
+end  
+  
+
+def big_shoe_rebounds
+  
+  big_shoe = 0
+  game_hash.each do |key, value|
+    value.each do |inner_key, inner_value|
+      if inner_key == :players
+        
+        inner_value.each do |player_block|
+          player_block.each do |attributes, stats|
+          
+            if attributes == :shoe
+              while big_shoe < stats
+                big_shoe = stats
+              end
+            end  
+            
+          end
+        end
+        
+        inner_value.each do |player_block|
+          player_block.each do |attributes, stats|
+            
+            if attributes == :shoe
+              if stats == big_shoe
+                return player_block[:rebounds]
+              end
+            end
+          end
+        end
+      
+      end 
+    end
+  end
+  
+end
+
+
