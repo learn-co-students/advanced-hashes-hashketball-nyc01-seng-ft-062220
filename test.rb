@@ -1,10 +1,9 @@
-require 'pry'
-# Write your code below game_hash
 def game_hash
   {
     home: {
       team_name: "Brooklyn Nets",
       colors: ["Black", "White"],
+      key: ["as", "dss"],
       players: [
         {
           player_name: "Alan Anderson",
@@ -17,6 +16,7 @@ def game_hash
           blocks: 1,
           slam_dunks: 1
         },
+        # {hello: "world"},
         {
           player_name: "Reggie Evans",
           number: 30,
@@ -31,7 +31,7 @@ def game_hash
         {
           player_name: "Brook Lopez",
           number: 11,
-          shoe: 17,
+          shoe: 19,
           points: 17,
           rebounds: 19,
           assists: 10,
@@ -42,7 +42,7 @@ def game_hash
         {
           player_name: "Mason Plumlee",
           number: 1,
-          shoe: 19,
+          shoe: 9,
           points: 26,
           rebounds: 11,
           assists: 6,
@@ -127,85 +127,44 @@ def game_hash
   }
 end
 
-# Write code here
-def num_points_scored(players_name)
-  game_hash.each do |location, team|
-    team.each do | attribute, data|
-    if attribute == :players
-      data.each do |player|
-        if player[:player_name] == players_name
-          return player[:points]
-          end
-        end
-      end
-    end
-  end
-end
 
-def shoe_size(players_name)
-  game_hash.each do |location, team|
-    team.each do |attribute, data|
-      if attribute == :players
-        player_data = data
-        player_data.each do |player|
-          if player[:player_name] == players_name
-            return player[:shoe]
-          end
-        end
-      end
-    end
-  end
-end
+# def team_colors(team_name)
+#   game_hash.each do | location, team_data |
+#     puts "game_hash_counter"
+#     team_data.each do |idk|
+#       puts "team_data_counter"
+#       puts idk
+#     #if team_data[:team_name] == team_name
+#       #return team_data[:colors]
+#   #  end
+#   end
+# end
+# end
+# puts team_colors("Brooklyn Nets")
+#
+# def calc_add(n)
+#   1 + n
+# end
+# puts calc_add("s")
+#
 
-def team_colors(team_name)
-  game_hash.each do | location, team_data |
-      if team_data[:team_name] == team_name
-        return team_data[:colors]
-      end
-  end
-end
+# r1 = [[1, 2], [3,4,5] ]
+  
+# # p r1[2][1]
 
-def team_names
-  results_array = []
-  game_hash.each do |location, team_data|
-    results_array << team_data[:team_name]
-  end
-  results_array
-end
+# p r1[0]
+# p r1[1]
 
+# r1.each do | i |
+#   puts "value of first index #{i}"
+# i.each do | fr |
+#   puts "value of second index #{fr}"
+#   end
+# end
 
-def player_numbers(team_name)
-  new_array = []
-  game_hash.each do | location, team_data |
-    if team_data[:team_name] == team_name
-      team_data.each do | attribute, data |
-        if attribute == :players
-          data.each do | pstat |
-          new_array << pstat[:number]
-          end
-        end
-      end
-    end 
-  end  
-return new_array
-end   
-
-
-def player_stats(players_name)
-  game_hash.each do |location, team|
-    team.each do |attribute, data|
-      if attribute == :players
-        data.each do |player|
-          if player[:player_name] == players_name
-            return player
-          end
-        end
-      end
-    end
-  end
-end
-
-def big_shoe_rebounds
+  
+    
+def big_shoe_rebounds1
   max = 0
   rebound = 0
   game_hash.each do | location, team |
@@ -223,3 +182,25 @@ def big_shoe_rebounds
   end
   p rebound
 end
+
+
+def big_shoe_rebounds
+  new_array = []
+  game_hash.each do | location, team |
+    team.each do | attribute, data |
+      if attribute == :players
+        data.each do | player |
+          new_array << player[:shoe]
+            
+          
+        end
+      end
+    end
+  end
+  max_index = new_array.find_index(new_array.max)
+  #puts game_hash[:home][:players][max_index][:rebounds]
+  game_hash.each do | location, team |
+   puts team[:players][max_index][:rebounds]
+  end
+end
+big_shoe_rebounds
