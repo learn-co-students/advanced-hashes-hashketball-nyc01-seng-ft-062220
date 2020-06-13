@@ -126,4 +126,133 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(player_name) 
+  #return number of points  
+  game_hash.each do |key, value|
+    if value[:players]
+      value.each do |players, p_array|
+        if players == :players
+          p_array.each do |p_data|
+            if p_data[:player_name] == player_name
+              return p_data[:points]
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+
+#num_points_scored("Kemba Walker")
+
+
+def shoe_size(player_name)
+  #return player shoe size
+  game_hash.each do |key, value|
+    if value[:players]
+      value.each do |players, p_array|
+        if players == :players
+          p_array.each do |p_data|
+            if p_data[:player_name] == player_name
+              return p_data[:shoe]
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+#shoe_size("Kemba Walker")
+
+def team_colors(team_name)
+  # return array of team colors
+  game_hash.each do  |key, value|
+    if value[:team_name] == team_name
+      return value[:colors]
+    end
+  end
+end
+
+#team_colors("Charlotte Hornets")
+
+def team_names
+  # return array of team names
+  output = [] 
+  game_hash.each do |key, value|
+    if value[:team_name]
+        output.push(value[:team_name])
+    end
+  end
+  output
+end
+
+#team_names
+
+def player_numbers(team_name)
+  # return array of player numbers
+  output = []
+  game_hash.each do |key, value|
+    if value[:players] && value[:team_name] == team_name
+      value[:players].each do |element|
+        output.push(element[:number])
+      end
+    end
+  end
+  output
+end
+
+#player_numbers("Charlotte Hornets")
+
+
+def player_stats(player_name)
+  #return total stats of player
+  output = game_hash.each_with_object({}) do |(key, value), final|
+    if value[:players]
+      value[:players].each do |element|
+        if element[:player_name] == player_name
+          final[:shoe] = element[:shoe]
+          final[:player_name] = element[:player_name]
+          final[:number] = element[:number]
+          final[:points] = element[:points]
+          final[:rebounds] = element[:rebounds]
+          final[:assists] = element[:assists]
+          final[:steals] = element[:steals]
+          final[:blocks] = element[:blocks]
+          final[:slam_dunks] = element[:slam_dunks]
+        end
+      end
+    end
+  end
+  output
+end
+
+
+#player_stats("Ben Gordon")
+
+def big_shoe_rebounds
+  #return rebound of player with biggest shoe size
+  biggest_size = nil
+  rebounds = nil;
+  output = game_hash.each do |key, value|
+    if value[:players]
+      value.each do |players, p_array|
+        if players == :players
+          p_array.each do |p_data|
+            if p_data[:player_name]
+              if biggest_size == nil || biggest_size < p_data[:shoe]
+               biggest_size = p_data[:shoe]
+               rebounds = p_data[:rebounds]
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  rebounds
+end
+
+big_shoe_rebounds
