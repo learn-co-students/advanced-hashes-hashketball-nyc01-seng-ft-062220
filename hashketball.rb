@@ -1,4 +1,3 @@
-# Write your code below game_hash
 def game_hash
   {
     home: {
@@ -127,3 +126,145 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player)
+  game_hash[:home][:players].each {|x,y|
+    if x[:player_name] == player 
+      return x[:points]
+    end
+  }
+  game_hash[:away][:players].each {|x,y|
+    if x[:player_name] == player 
+      return x[:points]
+    end   
+  }
+end
+
+def shoe_size(player)
+  game_hash[:home][:players].each {|x,y|
+    if x[:player_name] == player 
+      return x[:shoe]
+    end
+  }
+  game_hash[:away][:players].each {|x,y|
+    if x[:player_name] == player 
+      return x[:shoe]
+    end   
+  }
+end
+
+def team_colors(team)
+  if game_hash[:home][:team_name] == team 
+    return game_hash[:home][:colors]
+  end
+  game_hash[:away][:colors]
+end
+
+def team_names
+  [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
+
+def player_numbers(team) 
+  numbers = []
+  if game_hash[:home][:team_name] == team 
+    game_hash[:home][:players].each {|x,y|
+      numbers << x[:number]
+    }
+    return numbers
+  end
+  game_hash[:away][:players].each {|x,y|
+      numbers << x[:number]
+  }
+  numbers
+end 
+
+def player_stats(player)
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:player_name] == player
+        return x
+      end
+    }
+  }
+end
+
+def big_shoe_rebounds
+  game_hash.each{|x,y|
+      y[:players].each{|x,y|
+        if x[:shoe] == find_max_shoe
+          return x[:rebounds]
+        end
+      }
+    }
+end
+
+def find_max_shoe
+  max_shoe = 0
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:shoe] > max_shoe
+        max_shoe = x[:shoe]
+      end
+    }
+  }
+  max_shoe
+end
+
+def most_points_scored
+  max_points = 0
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:points] > max_points
+        max_points = x[:points]
+      end
+    }
+  }
+  max_points
+end
+
+def winning_team 
+  home_points = 0 
+  away_points = 0 
+  game_hash[:home][:players].each{|x,y|
+    home_points += x[:points]
+  }
+  game_hash[:away][:players].each{|x,y|
+    away_points += x[:points]
+  }
+  home_points > away_points ? game_hash[:home][:team_name] : game_hash[:away][:team_name]
+end
+
+def player_with_longest_name
+  max_name_length = 0
+  max_name = ""
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:player_name].length > max_name_length
+        max_name = x[:player_name]
+        max_name_length = x[:player_name].length
+      end
+    }
+  }
+  max_name
+end
+
+def most_steals 
+  max_steals = 0
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:steals] > max_steals
+        max_steals = x[:steals]
+      end
+    }
+  }
+  max_steals
+end
+
+def long_name_steals_a_ton?
+  game_hash.each{|x,y|
+    y[:players].each{|x,y|
+      if x[:player_name] == player_with_longest_name
+        (x[:steals] == most_steals) ? (return true) : (return false) 
+      end
+    }
+  }
+end
