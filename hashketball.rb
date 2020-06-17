@@ -1,3 +1,7 @@
+require "pry"
+
+# require './hashketball.rb'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +130,92 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  
+  game_hash.each do |(location, inner_hash)|
+    inner_hash[:players].each do |inner_key| #inner_key[:player_name] = "Alan Anderson"
+      if inner_key[:player_name] == player_name
+        return inner_key[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+    game_hash.each do |(location, inner_hash)|
+    
+    inner_hash[:players].each do |inner_key| #inner_key[:player_name] = "Alan Anderson"
+      if inner_key[:player_name] == player_name
+        return inner_key[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |(location, inner_hash)|
+    inner_hash.each do |(team_data, value)|
+      if inner_hash[:team_name] == team_name
+        return inner_hash[:colors]
+      end
+    end
+  end
+end
+
+def team_names
+  array = []
+  
+  game_hash.each do |(location, inner_hash)|
+    inner_hash.each do |(team_data, name)|
+    end
+    if !array.include?(inner_hash[:team_name])
+      array.push(inner_hash[:team_name])
+    end
+  end
+  return array
+end
+
+def player_numbers(name_of_team)
+  final_array = []
+
+  game_hash.each do |(location, inner_hash)|
+    #binding.pry
+    if inner_hash[:team_name] == name_of_team
+      inner_hash[:players].collect do |inner_key|
+        final_array.push(inner_key[:number])
+      end
+    end
+  end
+  return final_array
+end
+
+def player_stats(player_name)
+  
+  game_hash.each do |(location, inner_hash)|
+    inner_hash[:players].each do |inner_key|
+      if inner_key[:player_name] == player_name
+        return inner_key
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  big_shoe = nil
+  shoe_array = []
+  rebound = nil
+  
+  game_hash.each do |(location, inner_hash)|
+    inner_hash[:players].each do |inner_key|
+      shoe_array.push(inner_key[:shoe])
+      big_shoe = shoe_array.sort[-1]
+      inner_key.collect do |key, val|
+        if key == :shoe && val == big_shoe
+           rebound = inner_key[:rebounds]
+        end
+      end
+    end
+  end
+  return rebound
+end
+
