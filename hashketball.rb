@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -162,19 +164,16 @@ def player_numbers(team)
   end 
 end
 
+
 def player_stats(player_n)
   game_hash.each do |home_away, key|
     key[:players].each do |player|
       if player[:player_name] == player_n
-        return player.delete_if { |stat, value| [:player_name].include?(stat) }
-        return game_hash[:home][:players][name]
+        return player
       end
-    end
+    end 
   end
-  player_stats("Jeff Adrien")
 end 
-
-
 
 
 def big_shoe_rebounds
